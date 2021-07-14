@@ -32,9 +32,18 @@ CREATE TABLE employee (
 );
 
 
--- Creates new rows in department table in all named columns
+-- Creates new rows in Department table in all named columns
 INSERT INTO department (name)
-VALUES('Sales'),
+VALUES ('Management'),
+('Sales'),
 ('Accounting'),
 ('Marketing'),
 ('HR');
+
+-- Creates new rows in Role table in all named columns
+INSERT INTO role (title, salary, department_id)
+VALUES ('Regional Manager', 79000, 101),
+('Sales Rep', 65000, 300),
+('Receptionist', 66000, 200),
+('Marketing Specialist', 66000, 200),
+('HR Consultant', 75000, 401);
