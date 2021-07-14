@@ -47,3 +47,11 @@ VALUES ('Regional Manager', 79000, 101),
 ('Receptionist', 66000, 200),
 ('Marketing Specialist', 66000, 200),
 ('HR Consultant', 75000, 401);
+
+-- Creates new rows in Employee table in all named columns
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Regional Manager', 1, 54),
+('Sales Rep', 3, 23),
+('Receptionist', 2, 12),
+('Marketing Specialist', 5, 85),
+('HR Consultant', 4, 94);
