@@ -55,3 +55,8 @@ VALUES ('Regional Manager', 1, 54),
 ('Receptionist', 2, 12),
 ('Marketing Specialist', 5, 85),
 ('HR Consultant', 4, 94);
+
+-- Selecting All individual Tables  
+-- SELECT * FROM department;
+-- SELECT * FROM role;
+-- SELECT * FROM employee;
