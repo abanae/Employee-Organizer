@@ -18,7 +18,7 @@ connection.connect(async (err) => {
     try {
         // Prompt Function
         const userChoice1 = await inquirer.prompt([
-            [
+            {
                 name: 'userOptions',
                 type: 'list',
                 message: 'What would you like to do?',
@@ -37,8 +37,11 @@ connection.connect(async (err) => {
                     'Delete Department',
                     'View Department Budgets'
                 ],
-            ]
+            }
         ]);
+        userSelection(userChoice1.userOptions);
+    }catch (e){
+        console.log(e);
     }
 
 });
