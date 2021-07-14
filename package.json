@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/abanae/Employee-Organizer/issues"
   },
-  "homepage": "https://github.com/abanae/Employee-Organizer#readme"
+  "homepage": "https://github.com/abanae/Employee-Organizer#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }
