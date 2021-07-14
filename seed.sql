@@ -30,3 +30,11 @@ CREATE TABLE employee (
     FOREIGN KEY (role_id) REFERENCES role(id),
     FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
+
+
+-- Creates new rows in department table in all named columns
+INSERT INTO department (name)
+VALUES('Sales'),
+('Accounting'),
+('Marketing'),
+('HR');
