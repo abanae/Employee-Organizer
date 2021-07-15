@@ -1,4 +1,5 @@
 // SEtting Dependencies
+const util = require('util');
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 
@@ -12,12 +13,18 @@ const connection = mysql.createConnection({
 });
 
 //   Connection DB
-connection.connect(async (err) => {
+connection.connect((err) => {
     if (err) throw err;
     console.log(`Welcome to Employee Tracker ${connection.threadId}\n`);
+    firstPrompt();
+});
+
+connection.query = util.promisify(connection.query);
+
+const firstPrompt = async()=>{
     try {
         // Prompt Function
-        const userChoice1 = await inquirer.prompt([
+        const {userOptions} = await inquirer.prompt([
             {
                 name: 'userOptions',
                 type: 'list',
@@ -39,9 +46,31 @@ connection.connect(async (err) => {
                 ],
             }
         ]);
-        userSelection(userChoice1.userOptions);
-    }catch (e){
-        console.log(e);
+        userSelection(userOptions);
+    }catch (err){
+        console.log(err);
+    }
+}
+
+const userSelection = (userOptions)=>{
+    switch (userOptions){
+        case 'View All Employees':
+            getAllEmployees();
+            break;
+        case 'View All Employees By Roles':
+            // write call later review all employees
+            break;
+    }
+}
+
+const getAllEmployees = async()=>{
+    try{
+    const employee = await connection.query('SELECT * FROM employee');
+    console.table(employee);
+    firstPrompt()
+    }catch(err){
+        console.log(err);
     }
 
-});
+
+}
