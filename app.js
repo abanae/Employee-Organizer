@@ -61,9 +61,10 @@ const userSelection = (userOptions)=>{
             getAllEmplId();
             break;
         case 'View all Employees By Deparments':
+            getAllDept();
             break;
     }
-}
+};
 
 const getAllEmpl = async()=>{
     try{
@@ -73,7 +74,7 @@ const getAllEmpl = async()=>{
     }catch(err){
         console.log(err);
     }
-}
+};
 
 const getAllEmplId = async()=>{
     try{
@@ -83,4 +84,14 @@ const getAllEmplId = async()=>{
     }catch(err){
         console.log(err);
     }
-}
+};
+
+const getAllDept = async()=>{
+    try{
+    const dept = await connection.query('SELECT * FROM department');
+    console.table(dept);
+    firstPrompt()
+    }catch(err){
+    console.log(err);
+    }
+};
