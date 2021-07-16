@@ -33,16 +33,16 @@ const firstPrompt = async()=>{
                     'View All Employees',
                     'View All Employees By Roles',
                     'View all Employees By Deparments',
-                    'View all Employees by Manager',
+                    // 'View all Employees by Manager',
                     'Add Employee?',
                     'Add Role?',
                     'Add Department',
                     'Update Employee Roles',
-                    'Update Employee Managers',
-                    'Delete Employee',
-                    'Delete Role',
-                    'Delete Department',
-                    'View Department Budgets'
+                    // 'Update Employee Managers',
+                    // 'Delete Employee',
+                    // 'Delete Role',
+                    // 'Delete Department',
+                    // 'View Department Budgets'
                 ],
             }
         ]);
@@ -55,15 +55,17 @@ const firstPrompt = async()=>{
 const userSelection = (userOptions)=>{
     switch (userOptions){
         case 'View All Employees':
-            getAllEmployees();
+            getAllEmpl();
             break;
         case 'View All Employees By Roles':
-            // write call later review all employees
+            getAllEmplId();
+            break;
+        case 'View all Employees By Deparments':
             break;
     }
 }
 
-const getAllEmployees = async()=>{
+const getAllEmpl = async()=>{
     try{
     const employee = await connection.query('SELECT * FROM employee');
     console.table(employee);
@@ -71,6 +73,14 @@ const getAllEmployees = async()=>{
     }catch(err){
         console.log(err);
     }
+}
 
-
+const getAllEmplId = async()=>{
+    try{
+    const role = await connection.query('SELECT * FROM role');
+    console.table(role);
+    firstPrompt()
+    }catch(err){
+        console.log(err);
+    }
 }
