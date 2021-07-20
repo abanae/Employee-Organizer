@@ -53,6 +53,7 @@ const firstPrompt = async()=>{
     }
 }
 
+// Switch Case (User Options)
 const userSelection = (userOptions)=>{
     switch (userOptions){
         case 'View All Employees':
@@ -65,8 +66,17 @@ const userSelection = (userOptions)=>{
             getAllDept();
             break;
         case 'Add Employees':
-            addEmploye();
-            break;    
+            addEmpl();
+            break; 
+        case 'Add Role':
+            addRole();
+            break; 
+        case 'Add Department':  
+            addDepartment(); 
+            break;  
+        case 'Update Employees':
+            updateEmpl();
+            break;
     }
 };
 
