@@ -35,8 +35,8 @@ const firstPrompt = async () => {
                     'View All Employees By Roles',
                     'View all Employees By Deparments',
                     // 'View all Employees by Manager',
-                    'Add Employee?',
-                    'Add Role?',
+                    'Add Employee',
+                    'Add Role',
                     'Add Department',
                     'Update Employee Roles',
                     // 'Update Employee Managers',
@@ -65,7 +65,7 @@ const userSelection = (userOptions) => {
         case 'View all Employees By Deparments':
             getAllDept();
             break;
-        case 'Add Employees':
+        case 'Add Employee':
             addEmpl();
             break;
         case 'Add Role':
@@ -110,11 +110,11 @@ const getAllDept = async () => {
     }
 };
 // Add Employees
-const addEmployee =  () => {
-    connection.query('SELECT title FROM employee', async (err, positions) => {
+const addEmpl =  () => {
+    connection.query('SELECT title, id FROM role', async (err, positions) => {
         if (err) throw err;
     try {
-        const { first_name, last_name, manager_id } = await inquirer.prompt([
+        const answer = await inquirer.prompt([
             {
                 name: 'first_name',
                 message: "What is the employee's fist name?",
@@ -129,9 +129,10 @@ const addEmployee =  () => {
                 name: 'role_id',
                 message: "What is the employee's role?",
                 type: 'list',
-                choices: positions.map(title => title.title)
+                choices: positions.map(title => ({ name: title.title, value: title.id }))
         }
         ]);
+        console.log(answers);
     } catch (err) {
         console.log(err);
         connection.end()
@@ -148,7 +149,7 @@ const addEmployee =  () => {
 //   connection.query
 // }
 
-// const updateEmpRole = async() => {
+// const updateEmpl = async() => {
 //   connection.query
 // }
 
