@@ -3,6 +3,7 @@ const util = require('util');
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 
+
 // Setting Connection mySql
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -58,11 +59,14 @@ const userSelection = (userOptions)=>{
             getAllEmpl();
             break;
         case 'View All Employees By Roles':
-            getAllEmplId();
+            getAllEmplRole();
             break;
         case 'View all Employees By Deparments':
             getAllDept();
             break;
+        case 'Add Employees':
+            addEmploye();
+            break;    
     }
 };
 
@@ -76,7 +80,7 @@ const getAllEmpl = async()=>{
     }
 };
 
-const getAllEmplId = async()=>{
+const getAllEmplRole = async()=>{
     try{
     const role = await connection.query('SELECT * FROM role');
     console.table(role);
@@ -95,3 +99,30 @@ const getAllDept = async()=>{
     console.log(err);
     }
 };
+// Add Employees
+const addEmployee = async ()=>{
+    try{
+        const role = await connection.query('SELECT * FROM role');
+
+        const{ first_name, last_name, manager_id} = await inquirer.prompt([
+        {
+            name: 'first_name',
+            message: "What is the employee's fist name?",
+            type: 'input'
+        },
+        {
+            name: 'last_name',
+            message: "What is the employee's last name?",
+            type: 'input'
+        },
+        {
+            name: 'manager_id',
+            message: "What is the employee's manager?",
+            type: 'input'
+        },
+
+    ]);
+    }catch(err) {
+        connection.end();
+    }
+}
