@@ -22,10 +22,10 @@ connection.connect((err) => {
 
 connection.query = util.promisify(connection.query);
 
-const firstPrompt = async()=>{
+const firstPrompt = async () => {
     try {
         // Prompt Function
-        const {userOptions} = await inquirer.prompt([
+        const { userOptions } = await inquirer.prompt([
             {
                 name: 'userOptions',
                 type: 'list',
@@ -48,14 +48,14 @@ const firstPrompt = async()=>{
             }
         ]);
         userSelection(userOptions);
-    }catch (err){
+    } catch (err) {
         console.log(err);
     }
 }
 
 // Switch Case (User Options)
-const userSelection = (userOptions)=>{
-    switch (userOptions){
+const userSelection = (userOptions) => {
+    switch (userOptions) {
         case 'View All Employees':
             getAllEmpl();
             break;
@@ -67,72 +67,89 @@ const userSelection = (userOptions)=>{
             break;
         case 'Add Employees':
             addEmpl();
-            break; 
+            break;
         case 'Add Role':
             addRole();
-            break; 
-        case 'Add Department':  
-            addDepartment(); 
-            break;  
+            break;
+        case 'Add Department':
+            addDepartment();
+            break;
         case 'Update Employees':
             updateEmpl();
             break;
     }
 };
 
-const getAllEmpl = async()=>{
-    try{
-    const employee = await connection.query('SELECT * FROM employee');
-    console.table(employee);
-    firstPrompt()
-    }catch(err){
+const getAllEmpl = async () => {
+    try {
+        const employee = await connection.query('SELECT * FROM employee');
+        console.table(employee);
+        firstPrompt()
+    } catch (err) {
         console.log(err);
     }
 };
 
-const getAllEmplRole = async()=>{
-    try{
-    const role = await connection.query('SELECT * FROM role');
-    console.table(role);
-    firstPrompt()
-    }catch(err){
+const getAllEmplRole = async () => {
+    try {
+        const role = await connection.query('SELECT * FROM role');
+        console.table(role);
+        firstPrompt()
+    } catch (err) {
         console.log(err);
     }
 };
 
-const getAllDept = async()=>{
-    try{
-    const dept = await connection.query('SELECT * FROM department');
-    console.table(dept);
-    firstPrompt()
-    }catch(err){
-    console.log(err);
+const getAllDept = async () => {
+    try {
+        const dept = await connection.query('SELECT * FROM department');
+        console.table(dept);
+        firstPrompt()
+    } catch (err) {
+        console.log(err);
     }
 };
 // Add Employees
-const addEmployee = async ()=>{
-    try{
-        const role = await connection.query('SELECT * FROM role');
-
-        const{ first_name, last_name, manager_id} = await inquirer.prompt([
-        {
-            name: 'first_name',
-            message: "What is the employee's fist name?",
-            type: 'input'
-        },
-        {
-            name: 'last_name',
-            message: "What is the employee's last name?",
-            type: 'input'
-        },
-        {
-            name: 'manager_id',
-            message: "What is the employee's manager?",
-            type: 'input'
-        },
-
-    ]);
-    }catch(err) {
-        connection.end();
+const addEmployee =  () => {
+    connection.query('SELECT title FROM employee', async (err, positions) => {
+        if (err) throw err;
+    try {
+        const { first_name, last_name, manager_id } = await inquirer.prompt([
+            {
+                name: 'first_name',
+                message: "What is the employee's fist name?",
+                type: 'input'
+            },
+            {
+                name: 'last_name',
+                message: "What is the employee's last name?",
+                type: 'input'
+            },
+            {
+                name: 'role_id',
+                message: "What is the employee's role?",
+                type: 'list',
+                choices: positions.map(title => title.title)
+        }
+        ]);
+    } catch (err) {
+        console.log(err);
+        connection.end()
     }
+});
 }
+
+
+// const addRole = async() => {
+//   connection.query
+// }
+
+// const addDepartment = async() => {
+//   connection.query
+// }
+
+// const updateEmpRole = async() => {
+//   connection.query
+// }
+
+// connection.end();
