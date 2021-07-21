@@ -133,7 +133,7 @@ const addEmpl =  () => {
         }
         ]); 
         const query = 'INSERT INTO employee (first_name, last_name, role_id) VALUES(?, ?, ?)';
-        connection.query(query, [first_name, last_name, role_id], (err, result) => {
+        connection.query(query, [answer.first_name, answer.last_name, answer.role_id], (err, result) => {
             if (err) throw err;
             console.log('Employee added!', result);
         });
