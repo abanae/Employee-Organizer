@@ -135,7 +135,7 @@ const addEmpl = () => {
             connection.query(query, [answer.first_name, answer.last_name, answer.role_id], (err, result) => {
                 if (err) throw err;
                 console.log('Employee added!', result);
-                connection.end();
+                firstPrompt();
             });
         } catch (err) {
             console.log(err);
@@ -171,7 +171,7 @@ const addRole = () => {
             connection.query(query, [title, parseInt(salary), departmentId], (err, result) => {
                 if (err) throw err;
                 console.log(`New Role Added`, result);
-                connection.end();
+                firstPrompt();
             });
         } catch (err) {
             console.log(err);
