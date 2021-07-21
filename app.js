@@ -149,7 +149,9 @@ const addEmpl = () => {
 }
 
 // Add Role
-const addRole = async () => {
+const addRole = () => {
+    connection.query('SELECT department_id FROM role', async (err, roles) => {
+        if (err) throw err;
     try {
         const { title, salary, departmentId } = await inquirer.prompt([
         {
@@ -165,8 +167,9 @@ const addRole = async () => {
         {
             name: 'departmentId',
             message: "What is the new role's department id?",
-            type: 'input'
-        },   
+            type: 'list',
+            choices: roles.map( department_id => ({ name:  }))
+        }   
         ]);
         const query = `INSERT INTO role(title, salary, department_id) VALUES (?, ?, ?)`;
         connection.query(query, [title, parseInt(salary), departmentId], (err, result) => {
@@ -178,8 +181,8 @@ const addRole = async () => {
         console.log(err);
         connection.end();
     }
+});
 }
-
 
 
 // const addDepartment = async() => {
