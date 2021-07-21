@@ -131,8 +131,12 @@ const addEmpl =  () => {
                 type: 'list',
                 choices: positions.map(title => ({ name: title.title, value: title.id }))
         }
-        ]);
-        console.log(answers);
+        ]); 
+        const query = 'INSERT INTO employee (first_name, last_name, role_id) VALUES(?, ?, ?)';
+        connection.query(query, [first_name, last_name, role_id], (err, result) => {
+            if (err) throw err;
+            console.log('Employee added!', result);
+        });
     } catch (err) {
         console.log(err);
         connection.end()
