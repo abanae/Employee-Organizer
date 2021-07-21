@@ -151,7 +151,7 @@ const addEmpl = () => {
 // Add Role
 const addRole = async () => {
     try {
-        const newRole = await inquirer.prompt([
+        const { title, salary, departmentId } = await inquirer.prompt([
         {
             name: 'title',
             message: 'What is the title of new role?',
@@ -168,10 +168,12 @@ const addRole = async () => {
             type: 'input'
         },   
         ]);
-        console.log(newRole);
-        // const query = `INSERT INTO `
-        // connection.query
-    if (err) throw err;
+        const query = `INSERT INTO role(title, salary, department_id) VALUES (?, ?, ?)`;
+        connection.query(query, [title, parseInt(salary), departmentId], (err, result) => {
+            if (err) throw err;
+            console.log(`New Role Added`, result);
+            connection.end();
+        });
     } catch (err) {
         console.log(err);
         connection.end();
