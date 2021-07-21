@@ -150,7 +150,7 @@ const addEmpl = () => {
 
 // Add Role
 const addRole = () => {
-    connection.query('SELECT department_id FROM role', async (err, roles) => {
+    connection.query('SELECT title, id FROM role', async (err, roles) => {
         if (err) throw err;
     try {
         const { title, salary, departmentId } = await inquirer.prompt([
@@ -168,8 +168,8 @@ const addRole = () => {
             name: 'departmentId',
             message: "What is the new role's department id?",
             type: 'list',
-            choices: roles.map( department_id => ({ name:  }))
-        }   
+            choices: roles.map( options => ({ name: options.name, value: options.id }))
+        }    
         ]);
         const query = `INSERT INTO role(title, salary, department_id) VALUES (?, ?, ?)`;
         connection.query(query, [title, parseInt(salary), departmentId], (err, result) => {
