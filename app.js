@@ -214,7 +214,7 @@ const updateEmpl = async () => {
                 name: "column",
                 message: "What do you want to update?",
                 type: "list",
-                choices: ['First Name', 'Last Name', 'Role', 'Manager']
+                choices: ['First Name', 'Last Name', 'Role', 'Salary' ]
             }
         ]);
         switch (updating.column) {
@@ -241,7 +241,7 @@ const updateEmpl = async () => {
             case 'Role':
                 // code goes here
                 break
-            case 'Manager':
+            case 'Salary':
                 // code goes here
                 break
         };
