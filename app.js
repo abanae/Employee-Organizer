@@ -193,7 +193,7 @@ const addDepartment = async () => {
 };
 // Updating Employee
 const updateEmpl = async () => {
-    const allEmployees = await connection.query('SELECT first_name, last_name, id FROM employee')
+    const allEmployees = await connection.query('SELECT first_name, last_name, role_id, id  FROM employee')
     try {
         const updating = await inquirer.prompt([
             {
@@ -239,7 +239,7 @@ const updateEmpl = async () => {
                         message: "Change Role's id?"
                     }
                 ]);
-                connection.query(`UPDATE employee SET role_id = ? WHERE id =?`, [parseInt(role), updating.e]);
+                connection.query(`UPDATE employee SET role_id = ? WHERE id = ?`, [parseInt(role), updating.e]);
                 break
             case 'Salary':
                 const { salary } = await inquirer.prompt([
@@ -249,7 +249,10 @@ const updateEmpl = async () => {
                         message: "What is the updated Salary?"
                     }
                 ]);
-                connection.query(`UPDATE role SET salary = ? WHRER id =?`[parseInt(salary), updating.e]);
+                let selectedEmployee = allEmployees.filter((item) => {return item.id === updating.e});
+                console.log(selectedEmployee[0].role_id)
+
+                connection.query(`UPDATE role SET salary = ? WHERE id = ?`, [parseInt(salary), selectedEmployee[0].role_id]);
                 break
         };
 
