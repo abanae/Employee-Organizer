@@ -236,7 +236,7 @@ const updateEmpl = async () => {
                     {
                         name: "role",
                         type: 'input',
-                        message: "What would you like to update the Role to?"
+                        message: "Change Role's id?"
                     }
                 ]);
                 connection.query(`UPDATE employee SET role_id = ? WHERE id =?`, [parseInt(role), updating.e]);
@@ -249,7 +249,7 @@ const updateEmpl = async () => {
                         message: "What is the updated Salary?"
                     }
                 ]);
-                connection.query(`UPDATE employee SET salary = ? WHRER id =?`[parseInt(salary), updating.e])
+                connection.query(`UPDATE role SET salary = ? WHRER id =?`[parseInt(salary), updating.e]);
                 break
         };
 
