@@ -37,6 +37,7 @@ In order to use this application you will need to first run an npm install depen
 
 
 ## Final Product:
+  ![Emplyee Database Table](./assets/img/EmployeeTracj.PNG) 
   
  ## Demo Video
   See video [here](https://drive.google.com/file/d/1cGzSvBa3bh_tcJjUnm-R0eqlOnLctlu4/view).  
