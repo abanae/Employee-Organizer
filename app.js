@@ -39,7 +39,6 @@ const firstPrompt = async () => {
                     'Add Department',
                     'Update Employee',
                     'Delete Employee',
-                    //'Delete Employee',
                 ],
             }
         ]);
@@ -73,12 +72,9 @@ const userSelection = (userOptions) => {
         case 'Update Employee':
             updateEmpl();
             break;
-        // case 'Delete Employee':
-        //     deleteEmpl();
-        //     break
     }
 };
-
+// View All Employees
 const getAllEmpl = async () => {
     try {
         const employee = await connection.query('SELECT * FROM employee');
@@ -88,7 +84,7 @@ const getAllEmpl = async () => {
         console.log(err);
     }
 };
-
+// View all Employees By Roles
 const getAllEmplRole = async () => {
     try {
         const role = await connection.query('SELECT * FROM role');
@@ -98,7 +94,7 @@ const getAllEmplRole = async () => {
         console.log(err);
     }
 };
-
+// View all Employees By Deparments
 const getAllDept = async () => {
     try {
         const dept = await connection.query('SELECT * FROM department');
@@ -142,8 +138,7 @@ const addEmpl = () => {
             connection.end();
         }
     });
-}
-
+};
 // Add Role
 const addRole = () => {
     connection.query('SELECT title, id FROM role', async (err, roles) => {
@@ -178,9 +173,8 @@ const addRole = () => {
             connection.end();
         }
     });
-}
-
-
+};
+// Add Department 
 const addDepartment = async () => {
     try {
         const newDepartment = await inquirer.prompt([
@@ -197,9 +191,8 @@ const addDepartment = async () => {
         console.log(err);
         connection.end();
     }
-}
-
-
+};
+// Updating Employee
 const updateEmpl = async () => {
     const allEmployees = await connection.query('SELECT first_name, last_name, id FROM employee')
     try {
@@ -214,9 +207,10 @@ const updateEmpl = async () => {
                 name: "column",
                 message: "What do you want to update?",
                 type: "list",
-                choices: ['First Name', 'Last Name', 'Role', 'Salary' ]
+                choices: ['First Name', 'Last Name', 'Role', 'Salary']
             }
         ]);
+        // Switch Case (User Options to update)       
         switch (updating.column) {
             case 'First Name':
                 const { first_name } = await inquirer.prompt([
@@ -239,46 +233,40 @@ const updateEmpl = async () => {
                 connection.query(`UPDATE employee SET last_name = ? WHERE id = ?`, [last_name, updating.e]);
                 break
             case 'Role':
-                // code goes here
+                const { role } = await inquirer.prompt([
+                    {
+                        name: "role",
+                        type: 'input',
+                        message: "What would you like to update the Role to?"
+                    }
+                ]);
+                connection.query(`UPDATE employee SET role_id = ? WHERE id =?`, [parseInt(role), updating.e]);
                 break
             case 'Salary':
-                // code goes here
+                const { salary } = await inquirer.prompt([
+                    {
+                        name: "salary",
+                        type: "input",
+                        message: "What is the updated Salary?"
+                    }
+                ]);
+                connection.query(`UPDATE employee SET salary = ? WHRER id =?`[parseInt(salary), updating.e])
                 break
         };
 
-        console.log('done');
+        console.log('All Done');
         firstPrompt();
     } catch (err) {
         console.log(err);
         connection.end();
     }
-}
+};
 
 
 
 
 
-// Delete Employee
-// const deleteEmpl = async () => {
-//     connection.query(`SELECT * FROM employee`, async (err, employee) => {
-//         if (err) throw err;
-//         try {
-//             const employeeToDelete = await inquirer.prompt([
-//                 {
-//                     message: 'Which employee would you like to delete?',
-//                     name: 'deleted',
-//                     type: 'list',
-//                     choices: employee.map(employee => ({  }) ),
-//                 }
-//             ]);
-//             //  Inserting, deleting, or updating returns how many rows were affected by our query
-//             connection.query('DELETE FROM employee WHERE (first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?)', employeeToDelete.employee, (err, result) => {
-//                 if (err) throw err;
-//                 console.log('I AM THE DELETED RESULT', result);
-//                 connection.end();
-//             });
-//         } catch (e) {
-//             connection.end();
-//         }
-//     });
-// }
+
+
+
+
