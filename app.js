@@ -38,7 +38,6 @@ const firstPrompt = async () => {
                     'Add Role',
                     'Add Department',
                     'Update Employee',
-                    'Delete Employee',
                 ],
             }
         ]);
